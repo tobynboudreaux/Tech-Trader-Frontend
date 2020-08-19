@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
-import ProductList from './ProductList'
+import ProductList from '../intermediary/ProductList'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../index.css'
 const url = 'http://localhost:3000/products'
 
 export default class App extends React.Component {
