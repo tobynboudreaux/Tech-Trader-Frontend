@@ -1,10 +1,6 @@
 import React from 'react';
 import Product from '../components/Product'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import {Container, Row, Col, Form, Button, Card} from 'react-bootstrap'
 import ProductInfo from '../components/ProductInfo';
 
 export default class ProductList extends React.Component {
@@ -21,7 +17,8 @@ export default class ProductList extends React.Component {
             deleteProduct={this.props.deleteProduct} 
             editProduct={this.props.editProduct} 
             addToCart={this.props.addToCart}
-            show={this.props.show} />
+            show={this.props.show}
+             />
          ) : (
              prod.show === true ? (
                  <ProductInfo 
@@ -54,7 +51,17 @@ export default class ProductList extends React.Component {
                 </Form>
                 <Row>   
                     <Col fluid>
-                    Catagories 
+                <Card>                    <Form.Label>Filter by Category</Form.Label>
+                    <Form.Control as="select" onChange={this.props.filter}>
+                    <option></option>
+                    <option>pc</option>
+                    <option>mobile device</option>
+                    </Form.Control>
+                    <Form.Check type='checkbox' label='Sort By Price' value='price' onChange={this.props.sort}>
+                    </Form.Check>
+                    <Form.Check type='checkbox' label='Sort By Name' value='name' onChange={this.props.sort}>
+                    </Form.Check>
+                </Card>
                     </Col> 
                     <Col>
                     {this.renderProds()}

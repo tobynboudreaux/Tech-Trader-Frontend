@@ -132,6 +132,17 @@ export default class NavComp extends React.Component {
           this.setState({ category: event.target.value })
       }
 
+      sort = event => {
+        console.log(event.target)
+        if (event.target.value === 'price') {
+          return (a, b) => a.price - b.price
+        } if (event.target.value === 'name') {
+          return (a, b) => a.name.localeCompare(b.name)
+        } else {
+          return null
+        }
+      }
+
     render() {
         const prod = this.state.products.filter((prod) => (
             prod.name.toLowerCase().includes(this.state.input.toLowerCase())
@@ -157,7 +168,10 @@ export default class NavComp extends React.Component {
                         <Route exact path='/'>
                             
                             <App 
-                            products={prod.filter(pr => this.state.category !== '' ? pr.category === this.state.category : prod)} 
+                            products={prod
+                              .filter(pr => this.state.category !== '' ? pr.category === this.state.category : prod)
+                              .sort((a, b) => this.sort)
+                            } 
                             display={this.state.display} 
                             show={this.setDisplay} 
                             goBack={this.goBack} 
@@ -167,7 +181,9 @@ export default class NavComp extends React.Component {
                             deleteProduct={this.deleteProduct} 
                             editProduct={this.editProduct} 
                             addToCart={this.addToCart}
-                             />
+                            filter={this.filter}
+                            sort={this.sort}
+                            />
 
                         </Route>
                         <Route path="/my-cart">

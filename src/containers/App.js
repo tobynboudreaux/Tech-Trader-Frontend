@@ -18,7 +18,9 @@ export default class App extends React.Component {
       addReview={this.props.addReview} 
       deleteProduct={this.props.deleteProduct} 
       editProduct={this.props.editProduct} 
-      addToCart={this.props.addToCart}/>
+      addToCart={this.props.addToCart}
+      filter={this.props.filter} 
+      sort={this.props.sort} />
     </div>
   );
   }
