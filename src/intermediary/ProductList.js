@@ -5,12 +5,43 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import ProductInfo from '../components/ProductInfo';
 
 export default class ProductList extends React.Component {
+
+    renderProds = () => {
+    return this.props.products.map((prod) => 
+        this.props.display ?
+        (
+            <Product 
+            product={prod} 
+            key={prod.id} 
+            addLike={this.props.addLike} 
+            addReview={this.props.addReview} 
+            deleteProduct={this.props.deleteProduct} 
+            editProduct={this.props.editProduct} 
+            addToCart={this.props.addToCart}
+            show={this.props.show} />
+         ) : (
+             prod.show === true ? (
+                 <ProductInfo 
+                  product={prod}
+                  key={prod.id}
+                  addLike={this.props.addLike} 
+                  addReview={this.props.addReview} 
+                  deleteProduct={this.props.deleteProduct} 
+                  editProduct={this.props.editProduct} 
+                  addToCart={this.props.addToCart}
+                  goBack={this.props.goBack}>
+                 </ProductInfo>
+             ) : null
+         )    
+        )
+    }
+
     render() {
         return (
             <Container >
-
                 <Form onSubmit={this.props.addProduct}>
                     <Form.Label>Name</Form.Label>
                     <Form.Control type='text' name='name' placeholder='Enter Product Name'></Form.Control>
@@ -26,11 +57,7 @@ export default class ProductList extends React.Component {
                     Catagories 
                     </Col> 
                     <Col>
-                    {this.props.products.map((product) => (
-                       <Col>
-                       <Product product={product} key={product.id} addLike={this.props.addLike} addReview={this.props.addReview} deleteProduct={this.props.deleteProduct} editProduct={this.props.editProduct} />
-                       </Col>
-                    ))}
+                    {this.renderProds()}
                     </Col>
                 </Row>
             </Container>
