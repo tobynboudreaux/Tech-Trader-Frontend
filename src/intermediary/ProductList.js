@@ -44,7 +44,7 @@ export default class ProductList extends React.Component {
                 <br></br><br></br>
                 <Row>   
                     <Col fluid>
-                <Card>    
+                <Card border='light'>    
                     <br></br>             
                     <Form.Label>Filter by Category</Form.Label>
                     <Form.Control as="select" onChange={this.props.filter}>
