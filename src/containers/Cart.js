@@ -16,7 +16,7 @@ export default class Cart extends React.Component {
         prices.length > 0 ? total = prices.reduce(this.totalPrice) : total = null
         console.log(total)
         return (
-            <div>
+            <div >
                 <br></br><br></br>
                 <h1>Cart Total: {total}</h1>
                 <br></br><br></br>

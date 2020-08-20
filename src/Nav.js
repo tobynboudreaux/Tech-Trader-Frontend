@@ -5,7 +5,7 @@ import App from './containers/App'
 import Cart from './containers/Cart'
 import Sell from './components/Sell'
 import Profile from './components/Profile'
-import {Form, FormControl, Nav, Dropdown, DropdownButton} from 'react-bootstrap'
+import {Form, FormControl, Nav, Dropdown, DropdownButton, Jumbotron, Container} from 'react-bootstrap'
 const url = 'http://localhost:3000/products'
 
 
@@ -16,6 +16,7 @@ export default class NavComp extends React.Component {
         display: true,
         input: '',
         category: '',
+        sort: ''
       }
     
       componentDidMount() {
@@ -140,24 +141,41 @@ export default class NavComp extends React.Component {
       }
 
       sort = event => {
-        console.log(event.target)
         if (event.target.value === 'price') {
-          return (a, b) => a.price - b.price
+          this.setState({ sort: 'price' })
         } if (event.target.value === 'name') {
-          return (a, b) => a.name.localeCompare(b.name)
+          this.setState({ sort: 'name' })
         } else {
           return null
         }
       }
 
+      sortProd = (a, b) => {
+        if (this.state.sort === 'price') {
+          return a.price - b.price
+        } if (this.state.sort === 'name') {
+          return a.name.localeCompare(b.name)
+        } 
+      }
+
     render() {
         const prod = this.state.products.filter((prod) => (
             prod.name.toLowerCase().includes(this.state.input.toLowerCase())
+            ||
+            prod.category.toLowerCase().includes(this.state.input.toLowerCase())
         ))
         return (
             <Router>
                 <div>
                     <nav>
+                    <Jumbotron fluid>
+                      <Container>
+                        <h1>Tech Trader</h1>
+                        <p>
+                          Tech for trade and trade for Tech
+                        </p>
+                      </Container>
+                    </Jumbotron>
                     <Navbar bg="dark" variant="dark" fixed='top'>
                         <Link to='/'><Navbar.Brand>Tech Trader</Navbar.Brand></Link>
                         <Nav className='ml-auto'>
@@ -166,9 +184,11 @@ export default class NavComp extends React.Component {
                           
                             <DropdownButton id="dropdown-item-button" title="" navbar='true' drop='left'>
                               <Dropdown.ItemText>Welcome User</Dropdown.ItemText>
-                              <Dropdown.Item href='/profile'>Profile</Dropdown.Item>
-                              <Dropdown.Item href='/my-cart'>My Cart</Dropdown.Item>
-                              <Dropdown.Item href="/sell">Sell Something</Dropdown.Item>
+                              <Link to='/profile'>Profile</Link>
+                              <br></br>
+                              <Link to='/my-cart'>MyCart</Link>
+                              <br></br>
+                              <Link to='/sell'>Sell Something</Link>
                             </DropdownButton>
                         </Form>
                         </Nav>
@@ -182,7 +202,7 @@ export default class NavComp extends React.Component {
                             <App 
                             products={prod
                               .filter(pr => this.state.category !== '' ? pr.category === this.state.category : prod)
-                              .sort((a, b) => this.sort)
+                              .sort((a, b) => this.sortProd(a, b))
                             } 
                             display={this.state.display} 
                             show={this.setDisplay} 

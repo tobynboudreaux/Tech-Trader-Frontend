@@ -1,6 +1,6 @@
 import React from 'react';
 import Product from '../components/Product'
-import {Container, Row, Col, Form, Card} from 'react-bootstrap'
+import {Container, Row, Col, Form, Card, CardColumns} from 'react-bootstrap'
 import ProductInfo from '../components/ProductInfo';
 
 export default class ProductList extends React.Component {
@@ -9,6 +9,7 @@ export default class ProductList extends React.Component {
     return this.props.products.map((prod) => 
         this.props.display ?
         (
+            
             <Product 
             product={prod} 
             key={prod.id} 
@@ -19,6 +20,7 @@ export default class ProductList extends React.Component {
             addToCart={this.props.addToCart}
             show={this.props.show}
              />
+        
          ) : (
              prod.show === true ? (
                  <ProductInfo 
@@ -38,15 +40,15 @@ export default class ProductList extends React.Component {
 
     render() {
         return (
-            <Container >
+            <Container>
                 <br></br><br></br>
                 <Row>   
                     <Col fluid>
                 <Card>                    <Form.Label>Filter by Category</Form.Label>
                     <Form.Control as="select" onChange={this.props.filter}>
                     <option></option>
-                    <option>pc</option>
-                    <option>mobile device</option>
+                    <option>PC</option>
+                    <option>Mobile Device</option>
                     </Form.Control>
                     <Form.Check type='checkbox' label='Sort By Price' value='price' onChange={this.props.sort}>
                     </Form.Check>
@@ -54,9 +56,11 @@ export default class ProductList extends React.Component {
                     </Form.Check>
                 </Card>
                     </Col> 
-                    <Col>
-                    {this.renderProds()}
-                    </Col>
+
+                    <CardColumns>
+                        {this.renderProds()}
+                    </CardColumns>
+              
                 </Row>
             </Container>
         )

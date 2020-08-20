@@ -1,25 +1,28 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
-import ListGroup from 'react-bootstrap/ListGroup';
-import ListGroupItem from 'react-bootstrap/ListGroupItem';
-import Form from 'react-bootstrap/Form'
-import Card from 'react-bootstrap/Card'
+import { Accordion, Card, Form, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 export default class ProductInfo extends React.Component {
     render() {
         const product = this.props.product
         return (
             <div>
-                <Card>
+                <Card className='text-center' style={{ width: '40rem' }}>
                 <h1>{product.name}</h1>
-                <Card.Img variant="top" src={product.image} />
+                <Card.Img variant="top" style={{ objectFit: 'scale-down', height: 'auto', width: 'auto' }} src={product.image} />
+                <br></br><br></br>
+                <Card.Text>{product.description}</Card.Text>
                 <ListGroupItem>Likes: {product.likes.length}</ListGroupItem>
                         {product.reviews.map((rev) => (
                             <ListGroup className="list-group" key={rev.id}>
                             <ListGroupItem key={rev.id}>Rating: {rev.rating}</ListGroupItem>
                             <ListGroupItem>{rev.text}</ListGroupItem>
                             </ListGroup>
-                        ))}                                            
+                        ))}  
+                    <Accordion>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            Leave a Review!
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey='0'>                                          
                         <Form onSubmit={(e) => {
                             e.preventDefault(); 
                             this.props.addReview(product, e)
@@ -37,22 +40,37 @@ export default class ProductInfo extends React.Component {
                             <br></br>
                             <Button type='submit' variant='primary'>Rate</Button>
                         </Form>
+                        </Accordion.Collapse>
+                    </Accordion>
                     <ListGroup className="list-group-flush">
                     </ListGroup>
-                    <Card.Body>
-                      
-                        <Form onSubmit={(e) => {
-                            e.preventDefault()
-                            this.props.editProduct(product, e)}}>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type='text' name='name'></Form.Control>
-                            <Form.Label>Description</Form.Label> 
-                            <Form.Control type='text' name='description'></Form.Control>
-                            <Form.Label>Image</Form.Label>
-                            <Form.Control type='text' name='image'></Form.Control>
-                            <Button type='submit' variant='primary'>Edit</Button>
-                        </Form>
-                    </Card.Body>
+                    <Accordion>
+                        <Accordion.Toggle as={Button} variant='link' eventKey='1'>
+                            Edit Product Info
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey='1'>
+                            <Card.Body>
+                        
+                                <Form onSubmit={(e) => {
+                                    e.preventDefault()
+                                    this.props.editProduct(product, e)}}>
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type='text' name='name' placeholder='Enter New Product Name'></Form.Control>
+                                    <Form.Label>Description</Form.Label> 
+                                    <Form.Control type='text' name='description' placeholder='Enter New Product Description'></Form.Control>
+                                    <Form.Label>Image</Form.Label>
+                                    <Form.Control type='text' name='image' placeholder='Enter New Product Image Url'></Form.Control>
+                                    <Form.Label>Price</Form.Label>
+                                    <Form.Control type='text' name='price' placeholder='Enter New Product Price'></Form.Control>
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Control type='text' name='category' placeholder='Enter New Product Category'></Form.Control>
+                                    
+                                    <Button type='submit' variant='primary'>Edit</Button>
+                                </Form>
+                            </Card.Body>
+                        </Accordion.Collapse>
+                    </Accordion>
+                    
                     <Button onClick={() => this.props.goBack(product)}>Go Back</Button> 
                     <Button variant='primary' onClick={() => this.props.deleteProduct(product)}>DELETE</Button>
                     </Card>
