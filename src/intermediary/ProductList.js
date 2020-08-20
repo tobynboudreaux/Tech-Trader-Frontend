@@ -1,6 +1,6 @@
 import React from 'react';
 import Product from '../components/Product'
-import {Container, Row, Col, Form, Button, Card} from 'react-bootstrap'
+import {Container, Row, Col, Form, Card} from 'react-bootstrap'
 import ProductInfo from '../components/ProductInfo';
 
 export default class ProductList extends React.Component {
@@ -39,16 +39,7 @@ export default class ProductList extends React.Component {
     render() {
         return (
             <Container >
-                <Form onSubmit={this.props.addProduct}>
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type='text' name='name' placeholder='Enter Product Name'></Form.Control>
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control type='text' name='description' placeholder='Enter Product Description'></Form.Control>
-                    <Form.Label>Image</Form.Label>
-                    <Form.Control type='text' name='image' placeholder='Enter Product Image URL'></Form.Control>
-                    <br></br>
-                    <Button type='submit' variant="primary">Create</Button>
-                </Form>
+                <br></br><br></br>
                 <Row>   
                     <Col fluid>
                 <Card>                    <Form.Label>Filter by Category</Form.Label>

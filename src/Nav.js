@@ -3,7 +3,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom'
 import App from './containers/App'
 import Cart from './containers/Cart'
-import {Form, FormControl, Button, Nav} from 'react-bootstrap'
+import Sell from './components/Sell'
+import Profile from './components/Profile'
+import {Form, FormControl, Nav, Dropdown, DropdownButton} from 'react-bootstrap'
 const url = 'http://localhost:3000/products'
 
 
@@ -32,7 +34,9 @@ export default class NavComp extends React.Component {
           body: JSON.stringify({
             name: event.target.name.value,
             description: event.target.description.value,
-            image: event.target.image.value
+            image: event.target.image.value,
+            price: event.target.price.value,
+            category: event.target.category.value
           })
         })
       }
@@ -153,11 +157,16 @@ export default class NavComp extends React.Component {
                     <nav>
                     <Navbar bg="dark" variant="dark" fixed='top'>
                         <Link to='/'><Navbar.Brand>Tech Trader</Navbar.Brand></Link>
-                        <Link to='/my-cart'>Shopping Cart</Link>
                         <Nav className='ml-auto'>
                         <Form inline>
                             <FormControl type="text" placeholder="Search" value={this.state.input} onChange={this.search} className="mr-sm-2" />
-                            <Button variant="outline-success">Search</Button>
+                          
+                            <DropdownButton id="dropdown-item-button" title="" navbar='true' drop='left'>
+                              <Dropdown.ItemText>Welcome User</Dropdown.ItemText>
+                              <Dropdown.Item href='/profile'>Profile</Dropdown.Item>
+                              <Dropdown.Item href='/my-cart'>My Cart</Dropdown.Item>
+                              <Dropdown.Item href="/sell">Sell Something</Dropdown.Item>
+                            </DropdownButton>
                         </Form>
                         </Nav>
                     </Navbar>
@@ -191,6 +200,12 @@ export default class NavComp extends React.Component {
                             products={this.state.products.filter(prod => prod.added)}
                             removeFromCart={this.removeFromCart}
                             />
+                        </Route>
+                        <Route path='/profile'>
+                          <Profile />
+                        </Route>
+                        <Route path='/sell'>
+                          <Sell addProduct={this.addProduct}/>
                         </Route>
                     </Switch>
                 </div>
