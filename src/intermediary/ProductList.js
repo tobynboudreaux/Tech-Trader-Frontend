@@ -44,12 +44,15 @@ export default class ProductList extends React.Component {
                 <br></br><br></br>
                 <Row>   
                     <Col fluid>
-                <Card>                    <Form.Label>Filter by Category</Form.Label>
+                <Card>    
+                    <br></br>             
+                    <Form.Label>Filter by Category</Form.Label>
                     <Form.Control as="select" onChange={this.props.filter}>
                     <option></option>
                     <option>PC</option>
                     <option>Mobile Device</option>
                     </Form.Control>
+                    <br></br><br></br>
                     <Form.Check type='checkbox' label='Sort By Price' value='price' onChange={this.props.sort}>
                     </Form.Check>
                     <Form.Check type='checkbox' label='Sort By Name' value='name' onChange={this.props.sort}>

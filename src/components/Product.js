@@ -22,7 +22,7 @@ const Product = (props) => {
                 <Card border='light' className='text-center' style={{ width: '20rem' }}>
                     <Card.Body>
                         <Card.Title>{product.name}</Card.Title>
-                        <Card.Img variant='top' style={{ objectFit: 'scale-down', height: 'auto', width: 'auto' }} src={product.image} />
+                        <Card.Img variant='top' style={{ objectFit: 'scale-down', height: 'auto', width: 'auto', maxHeight: 200, maxWidth: 300 }} src={product.image} />
                         <br></br><br></br>
                         <Card.Text>
                         {product.description}

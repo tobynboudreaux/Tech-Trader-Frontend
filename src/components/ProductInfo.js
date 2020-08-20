@@ -8,7 +8,7 @@ export default class ProductInfo extends React.Component {
             <div>
                 <Card className='text-center' style={{ width: '40rem' }}>
                 <h1>{product.name}</h1>
-                <Card.Img variant="top" style={{ objectFit: 'scale-down', height: 'auto', width: 'auto' }} src={product.image} />
+                <Card.Img variant="top" style={{ objectFit: 'scale-down', height: 'auto', width: 'auto', maxHeight: 200, maxWidth: 300 }} src={product.image} />
                 <br></br><br></br>
                 <Card.Text>{product.description}</Card.Text>
                 <ListGroupItem>Likes: {product.likes.length}</ListGroupItem>
