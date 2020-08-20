@@ -22,6 +22,9 @@ export default class NavComp extends React.Component {
         fetch(url)
         .then(resp => resp.json())
         .then(json => this.setState({ products: json }))
+        fetch('http://localhost:3000/api')
+        .then(resp => resp.json())
+        .then(json => console.log(json))
       }
     
       addProduct(event) {
