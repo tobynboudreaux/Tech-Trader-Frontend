@@ -95,8 +95,7 @@ export default class NavComp extends React.Component {
             product_id: product.id
           })
         })
-        .then(resp => resp.json)
-        .then(rev => product.reviews.push(rev))
+
       }
     
       addToCart = (product) => {

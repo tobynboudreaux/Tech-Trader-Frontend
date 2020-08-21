@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import Card from 'react-bootstrap/Card';
 
 import Button from 'react-bootstrap/Button'
-import { Popover, Overlay } from 'react-bootstrap';
+import { Popover, Overlay, ProgressBar } from 'react-bootstrap';
 
 const Product = (props) => {
 
@@ -14,6 +14,14 @@ const Product = (props) => {
         setShow(!show)
         setTarget(e.target)
     }
+
+    const average = nums => {
+        
+        let av = nums.reduce((a, b) => (a+b), 0) / nums.length;
+        return Math.round(av * 100) / 100
+    }
+
+    const ratings = props.product.reviews.map(rev => rev.rating)
     const product = props.product
     
     return (
@@ -38,6 +46,9 @@ const Product = (props) => {
                     }} >Like</Button>
                     <Card.Text >${product.price}</Card.Text>
                     <Button variant='primary' onClick={() => props.addToCart(product)}>Add To Cart</Button>
+                    <br></br><br></br>
+                    <Card.Text>Average Rating: {average(ratings)}</Card.Text>
+                    <ProgressBar animated now={average(ratings) * 10} max={50} min={10} />
                     </Card.Body>
                     <div ref={ref}>
                             <Button block onClick={handleClick}>Product</Button>

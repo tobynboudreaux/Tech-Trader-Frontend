@@ -2,6 +2,8 @@ import React from 'react'
 import { Accordion, Card, Form, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 export default class ProductInfo extends React.Component {
+
+
     render() {
         const product = this.props.product
         return (
@@ -26,6 +28,11 @@ export default class ProductInfo extends React.Component {
                         <Accordion.Collapse eventKey='0'>                                          
                         <Form onSubmit={(e) => {
                             e.preventDefault(); 
+                            let revi = {
+                                'rating': e.target.rating.value,
+                                'text': e.target.text.value
+                            }
+                            product.reviews.push(revi)
                             this.props.addReview(product, e)
                         }}>
                             <Form.Label>Text</Form.Label>
