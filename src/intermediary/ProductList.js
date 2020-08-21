@@ -57,6 +57,8 @@ export default class ProductList extends React.Component {
                     </Form.Check>
                     <Form.Check type='checkbox' label='Sort By Name' value='name' onChange={this.props.sort}>
                     </Form.Check>
+                    <Form.Check type='checkbox' label='Sort By Likes' value='likes' onChange={this.props.sort}>
+                    </Form.Check>
                 </Card>
                     </Col> 
 

@@ -16,7 +16,8 @@ export default class NavComp extends React.Component {
         display: true,
         input: '',
         category: '',
-        sort: ''
+        sort: '',
+        cart: []
       }
     
       componentDidMount() {
@@ -67,6 +68,7 @@ export default class NavComp extends React.Component {
       }
     
       addLike(product) {
+        
         fetch(`http://localhost:3000/likes`, {
           method: 'POST',
           headers: {
@@ -77,6 +79,7 @@ export default class NavComp extends React.Component {
             product_id: product.id
           })
        })
+       
       }
     
       addReview(product, event) {
@@ -97,25 +100,17 @@ export default class NavComp extends React.Component {
       }
     
       addToCart = (product) => {
-        const prods = this.state.products.map((prod) => {
-          const newProd = {...prod}
-          if(newProd.id === product.id) {
-            newProd.added = true
-          }
-          return newProd
-        })
-        return this.setState({ products: prods })
+        if (!this.state.cart.includes(product)) {
+          this.setState({ cart: [...this.state.cart, product] })
+        }
       }
 
       removeFromCart = (product) => {
-        const prods = this.state.products.map((prod) => {
-          const newProd = {...prod}
-          if(newProd.id === product.id) {
-            newProd.added = false
-          }
-          return newProd
-        })
-        return this.setState({ products: prods })
+        const array = this.state.cart
+        const index = array.indexOf(product)
+        if (index > -1) {
+          this.setState({ array: array.splice(index, 1) })
+        }
       }
     
       setDisplay = (product) => {
@@ -145,6 +140,8 @@ export default class NavComp extends React.Component {
           this.setState({ sort: 'price' })
         } if (event.target.value === 'name') {
           this.setState({ sort: 'name' })
+        } if (event.target.value === 'likes') {
+          this.setState({ sort: 'likes' })
         } else {
           return null
         }
@@ -155,7 +152,13 @@ export default class NavComp extends React.Component {
           return a.price - b.price
         } if (this.state.sort === 'name') {
           return a.name.localeCompare(b.name)
-        } 
+        } if (this.state.sort === 'likes') {
+          return b.likes.length - a.likes.length
+        }
+      }
+
+      checkout = () => {
+        this.setState({ cart: [] })
       }
 
     render() {
@@ -220,8 +223,9 @@ export default class NavComp extends React.Component {
                         </Route>
                         <Route path="/my-cart">
                             <Cart 
-                            products={this.state.products.filter(prod => prod.added)}
+                            products={this.state.cart}
                             removeFromCart={this.removeFromCart}
+                            checkout={this.checkout}
                             />
                         </Route>
                         <Route path='/profile'>

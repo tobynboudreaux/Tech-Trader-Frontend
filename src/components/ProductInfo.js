@@ -5,8 +5,9 @@ export default class ProductInfo extends React.Component {
     render() {
         const product = this.props.product
         return (
-            <div>
-                <Card className='text-center' style={{ width: '40rem' }}>
+        <div className='text-center'>
+            <div className='product-card'>
+                <Card className='text-center' style={{ width: '70rem' }}>
                 <h1>{product.name}</h1>
                 <Card.Img variant="top" style={{ objectFit: 'scale-down', height: 'auto', width: 'auto', maxHeight: 200, maxWidth: 300 }} src={product.image} />
                 <br></br><br></br>
@@ -75,6 +76,7 @@ export default class ProductInfo extends React.Component {
                     <Button variant='primary' onClick={() => this.props.deleteProduct(product)}>DELETE</Button>
                     </Card>
             </div>
+        </div>
         )
     }
 }

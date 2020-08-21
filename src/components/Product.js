@@ -29,7 +29,13 @@ const Product = (props) => {
                         </Card.Text>
 
                         <br></br>
-                    <Button onClick={() => props.addLike(product)} >Like</Button>
+                        <Card.Text>Likes: {product.likes.length}</Card.Text>
+                    <Button onClick={() => {
+                        let likes = parseInt(product.likes.length)
+                        likes++
+                        product.likes.length = likes
+                        props.addLike(product)
+                    }} >Like</Button>
                     <Card.Text >${product.price}</Card.Text>
                     <Button variant='primary' onClick={() => props.addToCart(product)}>Add To Cart</Button>
                     </Card.Body>
